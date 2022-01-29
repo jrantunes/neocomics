@@ -8,8 +8,6 @@ const ts = Number(new Date());
 const hash = md5.create();
 hash.update(ts + privateKey + publicKey);
 
-console.log(hash);
-
 export const api = axios.create({
   baseURL: 'http://gateway.marvel.com/v1/public',
   params: {

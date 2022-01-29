@@ -3,11 +3,18 @@ import { createGlobalStyle } from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
   :root {
     --white: #ffffff;
+    --yellow: #ffc300;
+
     --white-200: #e7e7e7;
 
-    --red-300: #fd514d;
+    --gray-300: #969cb3;
     
+    --blue-500: #393059;
     --blue-700: #1a1e31;
+
+    --red-300: #fd514d;
+
+    --green-300: #33cc95;
   }
   
   * {
@@ -42,5 +49,9 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     cursor: pointer;
+  }
+  
+  li {
+    list-style: none;
   }
 `

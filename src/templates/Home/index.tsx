@@ -1,14 +1,31 @@
-import Image from 'next/image';
 import { Container, Content } from './styles';
 import { useEffect, useState } from 'react';
 
-import { BsFillCartFill } from 'react-icons/bs';
 import { Header } from '../../components/Header';
+import { ListItem } from '../../components/ListItem';
 
-import coverImg from '../../assets/images/cover.jpg';
 
+type Comic = {
+  id: number;
+  title: string;
+  description: string;
+  prices: Array<{
+    price: number;
+  }>;
+  thumbnail: {
+    path: string;
+    extension: string;
+  }
+}
 
-export default function Home() {
+export type HomeTemplateProps = {
+  total: number;
+  count: number;
+  results: Comic[];
+}
+
+export default function Home({ results, count }: HomeTemplateProps) {
+  const [rareComics, setRareComics] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
   
   function handleScroll() {
@@ -22,7 +39,15 @@ export default function Home() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     }
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    const shuffledResults = [...results].sort(() => 0.5 - Math.random());
+
+    const rareComicsIds = shuffledResults.map(result => result.id);
+
+    setRareComics(rareComicsIds.slice(0, 0.1 * count));
+  }, [count, results])
 
   return (
     <Container>
@@ -33,104 +58,9 @@ export default function Home() {
         <h1>Lista de quadrinhos</h1>
 
         <ul>
-          <li>
-            <Image src={coverImg} alt='HQ Example Cover' />
-            <div className="item-info">
-              <strong>HQ Example</strong>
-              <p>2021</p>
-              <p>R$10.00</p>
-            </div>
-            <div className='item-actions'>
-              <button>Comprar</button>
-              <button>
-                Adicionar ao carrinho
-              </button>
-            </div>
-          </li>
-          <li>
-            <Image src={coverImg} alt='HQ Example Cover' />
-            <div className="item-info">
-              <strong>HQ Example</strong>
-              <p>2021</p>
-              <p>R$10.00</p>
-            </div>
-            <div className='item-actions'>
-              <button>Comprar</button>
-              <button>
-                Adicionar ao carrinho
-              </button>
-            </div>
-          </li>
-          <li>
-            <Image src={coverImg} alt='HQ Example Cover' />
-            <div className="item-info">
-              <strong>HQ Example</strong>
-              <p>2021</p>
-              <p>R$10.00</p>
-            </div>
-            <div className='item-actions'>
-              <button>Comprar</button>
-              <button>
-                Adicionar ao carrinho
-              </button>
-            </div>
-          </li>
-          <li>
-            <Image src={coverImg} alt='HQ Example Cover' />
-            <div className="item-info">
-              <strong>HQ Example</strong>
-              <p>2021</p>
-              <p>R$10.00</p>
-            </div>
-            <div className='item-actions'>
-              <button>Comprar</button>
-              <button>
-                Adicionar ao carrinho
-              </button>
-            </div>
-          </li>
-          <li>
-            <Image src={coverImg} alt='HQ Example Cover' />
-            <div className="item-info">
-              <strong>HQ Example</strong>
-              <p>2021</p>
-              <p>R$10.00</p>
-            </div>
-            <div className='item-actions'>
-              <button>Comprar</button>
-              <button>
-                Adicionar ao carrinho
-              </button>
-            </div>
-          </li>
-          <li>
-            <Image src={coverImg} alt='HQ Example Cover' />
-            <div className="item-info">
-              <strong>HQ Example</strong>
-              <p>2021</p>
-              <p>R$10.00</p>
-            </div>
-            <div className='item-actions'>
-              <button>Comprar</button>
-              <button>
-                Adicionar ao carrinho
-              </button>
-            </div>
-          </li>
-          <li>
-            <Image src={coverImg} alt='HQ Example Cover' />
-            <div className="item-info">
-              <strong>HQ Example</strong>
-              <p>2021</p>
-              <p>R$10.00</p>
-            </div>
-            <div className='item-actions'>
-              <button>Comprar</button>
-              <button>
-                Adicionar ao carrinho
-              </button>
-            </div>
-          </li>
+          {results.map(comic => (
+            <ListItem key={comic.id} comic={comic} rare={rareComics.includes(comic.id)} />
+          ))}
         </ul>
       </Content>
     </Container>
