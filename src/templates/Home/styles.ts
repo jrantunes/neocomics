@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export const Container = styled.main`
   position: relative;
-`;
+`
 
 export const Content = styled.div`
-  margin-top: calc(6rem + 2rem);
+  margin: calc(6rem + 2rem) 0 2rem;
   padding: 0 2.5rem;
 
   h1 {

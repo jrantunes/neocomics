@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useCart } from '../../hooks/useCart';
 import { Comic } from '../../types';
 import { Container } from './styles';
@@ -9,6 +10,14 @@ type ListItemProps = {
 
 export function ListItem({ comic, rare = false }: ListItemProps) {
   const { cart, handleAddComicToCart, handleRemoveComicFromCart } = useCart();
+
+  const router = useRouter();
+
+  async function handleBuy(comicId: number) {
+    await handleAddComicToCart(comicId);
+
+    router.push('/cart');
+  }
 
   return (
     <Container isAlreadyAddedToCart={cart.some(item => item.id === comic.id)}>
@@ -27,7 +36,12 @@ export function ListItem({ comic, rare = false }: ListItemProps) {
           <p>${comic.prices[0].price.toFixed(2)}</p>
         </div>
         <div className='item-actions'>
-          <button>Comprar</button>
+          {!cart.some(item => item.id === comic.id) && (
+            <button onClick={() => handleBuy(comic.id)}>
+              Comprar
+            </button>
+          )}
+          
           { cart.some(item => item.id === comic.id) ? (
             <button onClick={() => handleRemoveComicFromCart(comic.id)}>
               Remover do carrinho

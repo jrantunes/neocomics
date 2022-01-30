@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
     --gray-300: #969cb3;
     
     --blue-500: #393059;
+    --blue-600: #241e38;
     --blue-700: #1a1e31;
 
     --red-300: #fd514d;
@@ -50,6 +51,8 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     cursor: pointer;
+
+    border: 0;
   }
   
   li {
