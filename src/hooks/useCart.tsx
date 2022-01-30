@@ -8,8 +8,8 @@ import { Comic } from '../types';
 
 type CartContextData = {
   cart: Comic[];
-  addComic: (comicId: number) => void;
-  removeComic: (comicId: number) => void;
+  handleAddComicToCart: (comicId: number) => void;
+  handleRemoveComicFromCart: (comicId: number) => void;
 }
 
 type CartProviderProps = {
@@ -31,7 +31,7 @@ export function CartProvider({ children }: CartProviderProps) {
     }
   }, [])
 
-  async function addComic(comicId: number) {
+  async function handleAddComicToCart(comicId: number) {
     try {
       const updatedCart = [...cart];
     
@@ -66,7 +66,7 @@ export function CartProvider({ children }: CartProviderProps) {
     }
   }
 
-  function removeComic(comicId: number) {
+  function handleRemoveComicFromCart(comicId: number) {
     console.log(comicId);
 
     const updatedCart = [...cart];
@@ -92,7 +92,7 @@ export function CartProvider({ children }: CartProviderProps) {
   }
 
   return (
-    <CartContext.Provider value={{ cart, addComic, removeComic }}>
+    <CartContext.Provider value={{ cart, handleAddComicToCart, handleRemoveComicFromCart }}>
       {children}
     </CartContext.Provider>
   )

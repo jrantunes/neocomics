@@ -8,7 +8,7 @@ type ListItemProps = {
 }
 
 export function ListItem({ comic, rare = false }: ListItemProps) {
-  const { cart, addComic, removeComic } = useCart();
+  const { cart, handleAddComicToCart, handleRemoveComicFromCart } = useCart();
 
   return (
     <Container isAlreadyAddedToCart={cart.some(item => item.id === comic.id)}>
@@ -29,11 +29,11 @@ export function ListItem({ comic, rare = false }: ListItemProps) {
         <div className='item-actions'>
           <button>Comprar</button>
           { cart.some(item => item.id === comic.id) ? (
-            <button onClick={() => removeComic(comic.id)}>
+            <button onClick={() => handleRemoveComicFromCart(comic.id)}>
               Remover do carrinho
             </button>  
           ) : (
-            <button onClick={() => addComic(comic.id)}>
+            <button onClick={() => handleAddComicToCart(comic.id)}>
               Adicionar ao carrinho
             </button>
           ) }
