@@ -2,13 +2,26 @@ import { BsFillBookFill, BsFillCartFill, BsCart } from 'react-icons/bs';
 import { Container } from './styles';
 import Link from 'next/link';
 import { useCart } from '../../hooks/useCart';
+import { useEffect, useState } from 'react';
 
-type HeaderProps = {
-  scrollPosition: number; 
-}
+export function Header() {
+  const [scrollPosition, setScrollPosition] = useState(0);
 
-export function Header({ scrollPosition }: HeaderProps) {
   const { cart } = useCart();
+
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
+  
+  function handleScroll() {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  }
   
   return (
     <Container scrollPosition={scrollPosition}>
