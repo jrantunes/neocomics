@@ -8,7 +8,7 @@ import { Comic } from '../types';
 
 type CartContextData = {
   cart: Comic[];
-  handleAddComicToCart: (comicId: number) => void;
+  handleAddComicToCart: (comicId: number) => Promise<void>;
   handleRemoveComicFromCart: (comicId: number) => void;
 }
 

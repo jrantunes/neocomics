@@ -3,12 +3,12 @@ import { useCart } from '../../hooks/useCart';
 import { Comic } from '../../types';
 import { Container } from './styles';
 
-type ListItemProps = {
+type ComicResultItemProps = {
   comic: Comic;
   rare?: boolean;
 }
 
-export function ListItem({ comic, rare = false }: ListItemProps) {
+export function ComicResultItem({ comic, rare = false }: ComicResultItemProps) {
   const { cart, handleAddComicToCart, handleRemoveComicFromCart } = useCart();
 
   const router = useRouter();

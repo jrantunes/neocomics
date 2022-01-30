@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { ComicResultItem } from '../../components/ComicResultItem';
 import { Container, Content } from './styles';
-import { ListItem } from '../../components/ListItem';
 import { FloatingCartButton } from '../../components/FloatingCartButton';
 
 import { Comic } from '../../types';
@@ -31,7 +31,7 @@ export default function Home({ results, count }: HomeTemplateProps) {
 
         <ul>
           {results.map(comic => (
-            <ListItem 
+            <ComicResultItem 
               key={comic.id} 
               comic={comic} 
               rare={rareComics.includes(comic.id)} 
