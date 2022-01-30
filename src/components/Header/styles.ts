@@ -9,7 +9,7 @@ export const Container = styled.header<HeaderProps>`
   z-index: 1;
   top: 0;
   width: 100vw;
-  padding: 1rem 2rem;
+  padding: 1rem 2.5rem;
   background-color: ${({ scrollPosition }) => scrollPosition > 40 
     ? 'var(--red-300)' 
     : 'transparent' 

@@ -3,20 +3,9 @@ import { useEffect, useState } from 'react';
 
 import { Header } from '../../components/Header';
 import { ListItem } from '../../components/ListItem';
-
-
-type Comic = {
-  id: number;
-  title: string;
-  description: string;
-  prices: Array<{
-    price: number;
-  }>;
-  thumbnail: {
-    path: string;
-    extension: string;
-  }
-}
+import { Comic } from '../../types';
+import { useCart } from '../../hooks/useCart';
+import { ToastContainer } from 'react-toastify';
 
 export type HomeTemplateProps = {
   total: number;
@@ -27,11 +16,8 @@ export type HomeTemplateProps = {
 export default function Home({ results, count }: HomeTemplateProps) {
   const [rareComics, setRareComics] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
-  
-  function handleScroll() {
-    const position = window.pageYOffset;
-    setScrollPosition(position);
-  }
+
+  const { cart, addComic } = useCart();
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -47,19 +33,30 @@ export default function Home({ results, count }: HomeTemplateProps) {
     const rareComicsIds = shuffledResults.map(result => result.id);
 
     setRareComics(rareComicsIds.slice(0, 0.1 * count));
-  }, [count, results])
+  }, [count, results]);
+  
+  function handleScroll() {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  }
 
   return (
     <Container>
       <Header 
         scrollPosition={scrollPosition} 
       />
+      <ToastContainer autoClose={2000} theme='colored' />
       <Content>
         <h1>Lista de quadrinhos</h1>
 
         <ul>
           {results.map(comic => (
-            <ListItem key={comic.id} comic={comic} rare={rareComics.includes(comic.id)} />
+            <ListItem 
+              key={comic.id} 
+              comic={comic} 
+              rare={rareComics.includes(comic.id)} 
+              addComic={addComic}
+            />
           ))}
         </ul>
       </Content>

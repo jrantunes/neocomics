@@ -2,11 +2,15 @@ import styled from 'styled-components';
 
 import { darken } from 'polished';
 
-export const Container = styled.li`
+type ContainerProps = {
+  isAlreadyAddedToCart: boolean;
+}
+
+export const Container = styled.li<ContainerProps>`
   max-height: 20rem;
  
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 0.5rem;
 
   .item-cover {
@@ -87,12 +91,15 @@ export const Container = styled.li`
           display: flex;
           align-items: center;
         
-          background: #393059;
+          background: ${(props) => props.isAlreadyAddedToCart 
+            ? 'var(--red-300)' 
+            : 'var(--blue-500)'
+          };
 
           transition: background-color 0.2s;
 
           &:hover {
-            background: ${darken(0.05, '#393059')}
+            background: ${(props) => darken(0.05, props.isAlreadyAddedToCart ? '#fd514d' : '#393059')}
           }
         }
       }
