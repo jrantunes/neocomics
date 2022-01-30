@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useCart } from '../../hooks/useCart';
 import { Comic } from '../../types';
 import { Container } from './styles';
@@ -6,24 +5,13 @@ import { Container } from './styles';
 type ListItemProps = {
   comic: Comic;
   rare?: boolean;
-  addComic: (comicId: number) => void;
 }
 
-export function ListItem({ comic, rare = false, addComic }: ListItemProps) {
-  const [isAlreadyAddedToCart, setIsAlreadyAddedToCart] = useState(false);
-
-  const { cart } = useCart();
-
-  useEffect(() => {
-    const itemAlreadyAdded = cart.some(item => item.id === comic.id);
-  
-    if (itemAlreadyAdded) {
-      setIsAlreadyAddedToCart(true);
-    }
-  }, [cart, comic.id])
+export function ListItem({ comic, rare = false }: ListItemProps) {
+  const { cart, addComic, removeComic } = useCart();
 
   return (
-    <Container isAlreadyAddedToCart={isAlreadyAddedToCart}>
+    <Container isAlreadyAddedToCart={cart.some(item => item.id === comic.id)}>
       <div className="item-cover">
         <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title} />
       </div>
@@ -40,11 +28,15 @@ export function ListItem({ comic, rare = false, addComic }: ListItemProps) {
         </div>
         <div className='item-actions'>
           <button>Comprar</button>
-          <button onClick={() => addComic(comic.id)}>
-            { isAlreadyAddedToCart 
-              ? 'Remover do' 
-              : 'Adicionar ao' } carrinho
-          </button>
+          { cart.some(item => item.id === comic.id) ? (
+            <button onClick={() => removeComic(comic.id)}>
+              Remover do carrinho
+            </button>  
+          ) : (
+            <button onClick={() => addComic(comic.id)}>
+              Adicionar ao carrinho
+            </button>
+          ) }
         </div>
       </div>
     </Container>

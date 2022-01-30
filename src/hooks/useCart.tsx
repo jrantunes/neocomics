@@ -9,6 +9,7 @@ import { Comic } from '../types';
 type CartContextData = {
   cart: Comic[];
   addComic: (comicId: number) => void;
+  removeComic: (comicId: number) => void;
 }
 
 type CartProviderProps = {
@@ -59,14 +60,39 @@ export function CartProvider({ children }: CartProviderProps) {
 
       setCart(updatedCart);
       
-      toast.success('HQ adicionado ao seu carrinho :)');
+      toast.success('HQ adicionado ao seu carrinho!');
     } catch(err) {
       console.log(err);
     }
   }
 
+  function removeComic(comicId: number) {
+    console.log(comicId);
+
+    const updatedCart = [...cart];
+    
+    console.log(updatedCart);
+    
+    const comicIndex = updatedCart.findIndex(comic => comic.id === comicId);
+
+    console.log(comicIndex);
+
+    updatedCart.splice(comicIndex, 1);
+
+    console.log(updatedCart);
+    
+    setCookie(undefined, 'neocomics.cart', JSON.stringify(updatedCart), {
+      maxAge: 60 * 60 * 24, // 24 horas
+      path: '/', // acessível em qualquer caminho
+    });
+
+    setCart(updatedCart); 
+
+    toast.success('HQ removida do seu carrinho!');
+  }
+
   return (
-    <CartContext.Provider value={{ cart, addComic }}>
+    <CartContext.Provider value={{ cart, addComic, removeComic }}>
       {children}
     </CartContext.Provider>
   )

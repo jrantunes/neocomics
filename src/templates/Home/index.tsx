@@ -17,7 +17,7 @@ export default function Home({ results, count }: HomeTemplateProps) {
   const [rareComics, setRareComics] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  const { cart, addComic } = useCart();
+  const { cart } = useCart();
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -55,7 +55,6 @@ export default function Home({ results, count }: HomeTemplateProps) {
               key={comic.id} 
               comic={comic} 
               rare={rareComics.includes(comic.id)} 
-              addComic={addComic}
             />
           ))}
         </ul>
