@@ -70,7 +70,6 @@ export const Container = styled.li<ContainerProps>`
 
       button {
         padding: 1rem 2rem;
-        border: none;
         border-radius: 0.25rem;
 
         display: flex;

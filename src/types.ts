@@ -9,4 +9,5 @@ export type Comic = {
     path: string;
     extension: string;
   }
+  amount?: number;
 }

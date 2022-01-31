@@ -3,12 +3,13 @@ import { Container } from './styles';
 import Link from 'next/link';
 import { useCart } from '../../hooks/useCart';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 export function Header() {
   const [scrollPosition, setScrollPosition] = useState(0);
-
+  
   const { cart } = useCart();
-
+  const { pathname } = useRouter();
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -32,20 +33,22 @@ export function Header() {
         </div>
       </Link>
 
-      <Link href='/cart' passHref >
-        <div className="header-cart">
-          { cart.length > 0 ? (
-            <BsFillCartFill size={34} color='#ffffff' />
-          ) : (
-            <BsCart size={34} color='#ffffff' />
-          )}
-          <strong>
-            { cart.length > 0 
-              ? `Seu carrinho possui ${cart.length} ${cart.length > 1 ? 'Itens' : 'Item'}` 
-              : 'Carrinho vazio' }
-          </strong>
-        </div>
-      </Link>
+      { pathname !== '/cart' && (
+        <Link href='/cart' passHref >
+          <div className="header-cart">
+            { cart.length > 0 ? (
+              <BsFillCartFill size={34} color='#ffffff' />
+            ) : (
+              <BsCart size={34} color='#ffffff' />
+            )}
+            <strong>
+              { cart.length > 0 
+                ? `Seu carrinho possui ${cart.length} ${cart.length > 1 ? 'Itens' : 'Item'}` 
+                : 'Carrinho vazio' }
+            </strong>
+          </div>
+       </Link>
+      ) }
     </Container>
   )
 }
