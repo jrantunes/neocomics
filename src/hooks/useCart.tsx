@@ -1,5 +1,5 @@
+import Router from 'next/router';
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
-import { setCookie, parseCookies } from 'nookies';
 import { toast } from 'react-toastify';
 import { api } from '../services/api';
 
@@ -10,6 +10,7 @@ type CartContextData = {
   cart: Comic[];
   handleAddComicToCart: (comicId: number) => Promise<void>;
   handleRemoveComicFromCart: (comicId: number) => void;
+  handleCleanCart: () => void;
 }
 
 type CartProviderProps = {
@@ -22,12 +23,10 @@ export function CartProvider({ children }: CartProviderProps) {
   const [cart, setCart] = useState<Comic[]>([]);
 
   useEffect(() => {
-    const { 'neocomics.cart': cookiesCart } = parseCookies();
+    const storagedCart = localStorage.getItem('@neocomics:cart');
   
-    if (cookiesCart) {
-      const parsedCart = JSON.parse(cookiesCart);
-
-      setCart(parsedCart);
+    if (storagedCart) {
+      setCart(JSON.parse(storagedCart));
     }
   }, [])
 
@@ -53,46 +52,41 @@ export function CartProvider({ children }: CartProviderProps) {
         title,
       });
 
-      setCookie(undefined, 'neocomics.cart', JSON.stringify(updatedCart), {
-        maxAge: 60 * 60 * 24, // 24 horas
-        path: '/'
-      });
-
       setCart(updatedCart);
+
+      localStorage.setItem('@neocomics:cart', JSON.stringify(updatedCart));
       
       toast.success('HQ adicionado ao seu carrinho!');
-    } catch(err) {
-      console.log(err);
+    } catch{
+      toast.error('Erro ao adicionar a HQ :(')
     }
+    
   }
 
   function handleRemoveComicFromCart(comicId: number) {
-    console.log(comicId);
-
     const updatedCart = [...cart];
-    
-    console.log(updatedCart);
-    
     const comicIndex = updatedCart.findIndex(comic => comic.id === comicId);
-
-    console.log(comicIndex);
 
     updatedCart.splice(comicIndex, 1);
 
-    console.log(updatedCart);
-    
-    setCookie(undefined, 'neocomics.cart', JSON.stringify(updatedCart), {
-      maxAge: 60 * 60 * 24, // 24 horas
-      path: '/', // acessível em qualquer caminho
-    });
 
     setCart(updatedCart); 
+
+    localStorage.setItem('@neocomics:cart', JSON.stringify(updatedCart));
 
     toast.success('HQ removida do seu carrinho!');
   }
 
+  function handleCleanCart() {
+    localStorage.removeItem('@neocomics:cart');
+
+    setCart([]);
+
+    Router.push('/');
+  }
+
   return (
-    <CartContext.Provider value={{ cart, handleAddComicToCart, handleRemoveComicFromCart }}>
+    <CartContext.Provider value={{ cart, handleAddComicToCart, handleRemoveComicFromCart, handleCleanCart }}>
       {children}
     </CartContext.Provider>
   )
