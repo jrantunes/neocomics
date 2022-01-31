@@ -11,6 +11,7 @@ type CartContextData = {
   handleAddComicToCart: (comicId: number) => Promise<void>;
   handleRemoveComicFromCart: (comicId: number) => void;
   handleCleanCart: () => void;
+  handleIncreaseComicAmount: (comicId: number, amount: number) => void;
 }
 
 type CartProviderProps = {
@@ -42,7 +43,7 @@ export function CartProvider({ children }: CartProviderProps) {
 
       const { results } = data.data;
 
-      const { id, description, prices, thumbnail, title } = results[0];
+      const { id, description, prices, thumbnail, title, amount } = results[0];
 
       updatedCart.push({
         id,
@@ -50,6 +51,7 @@ export function CartProvider({ children }: CartProviderProps) {
         prices,
         thumbnail,
         title,
+        amount: 1,
       });
 
       setCart(updatedCart);
@@ -60,7 +62,17 @@ export function CartProvider({ children }: CartProviderProps) {
     } catch{
       toast.error('Erro ao adicionar a HQ :(')
     }
-    
+  }
+
+  function handleIncreaseComicAmount(comicId: number, amount: number) {
+    const updatedCart = [...cart];
+    const comic = updatedCart.find(comic => comic.id === comicId);
+
+    comic.amount = amount;
+
+    setCart(updatedCart);
+
+    localStorage.setItem('@neocomics:cart', JSON.stringify(updatedCart));
   }
 
   function handleRemoveComicFromCart(comicId: number) {
@@ -86,7 +98,7 @@ export function CartProvider({ children }: CartProviderProps) {
   }
 
   return (
-    <CartContext.Provider value={{ cart, handleAddComicToCart, handleRemoveComicFromCart, handleCleanCart }}>
+    <CartContext.Provider value={{ cart, handleAddComicToCart, handleRemoveComicFromCart, handleCleanCart, handleIncreaseComicAmount }}>
       {children}
     </CartContext.Provider>
   )
