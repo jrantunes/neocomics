@@ -83,9 +83,7 @@ export const SelectContainer = styled.div`
     font-size: 1.25rem;
     color: var(--white);
 
-    &::after {
-      background: red;
-    }
+    cursor: pointer;
   }
 `
 

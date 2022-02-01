@@ -1,20 +1,21 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCart } from '../../hooks/useCart';
 import { Comic } from '../../types';
+import { CartButton } from '../CartButton';
 import { Container } from './styles';
 
 type ComicResultItemProps = {
   comic: Comic;
-  rare?: boolean;
 }
 
-export function ComicResultItem({ comic, rare = false }: ComicResultItemProps) {
-  const { cart, handleAddComicToCart, handleRemoveComicFromCart } = useCart();
+export function ComicResultItem({ comic }: ComicResultItemProps) {
+  const { cart, handleAddComicToCart } = useCart();
 
   const router = useRouter();
 
-  async function handleBuy(comicId: number) {
-    await handleAddComicToCart(comicId);
+  async function handleBuy(comicId: number, rare: boolean) {
+    await handleAddComicToCart(comicId, rare);
 
     router.push('/cart');
   }
@@ -26,9 +27,11 @@ export function ComicResultItem({ comic, rare = false }: ComicResultItemProps) {
       </div>
       <div className="item-details">
         <div className="item-info">
-          <strong>{comic.title}</strong>
+          <Link href={`/comic/${comic.id}`} passHref>
+            <strong>{comic.title}</strong>
+          </Link>
           <p>2021</p>
-          { rare && (
+          { comic.rare && (
             <span>
               <strong>RARO</strong>
             </span>
@@ -37,20 +40,12 @@ export function ComicResultItem({ comic, rare = false }: ComicResultItemProps) {
         </div>
         <div className='item-actions'>
           {!cart.some(item => item.id === comic.id) && (
-            <button onClick={() => handleBuy(comic.id)}>
+            <button onClick={() => handleBuy(comic.id, comic.rare)}>
               Comprar
             </button>
-          )}
-          
-          { cart.some(item => item.id === comic.id) ? (
-            <button onClick={() => handleRemoveComicFromCart(comic.id)}>
-              Remover do carrinho
-            </button>  
-          ) : (
-            <button onClick={() => handleAddComicToCart(comic.id)}>
-              Adicionar ao carrinho
-            </button>
-          ) }
+          )}          
+        
+          <CartButton alreadyInCart={cart.some(item => item.id === comic.id)} comicId={comic.id} rare={comic.rare} />
         </div>
       </div>
     </Container>

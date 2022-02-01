@@ -31,9 +31,7 @@ export function CartComicItem({ comic }: CartComicItemProps) {
         </SelectContainer>
         <strong>${(comic.amount * comic.prices[0].price).toFixed(2)}</strong>
 
-        <span>
-          <strong>RARO</strong>
-        </span>
+        { comic.rare && <span><strong>RARO</strong></span> }
 
         <RemoveButton onClick={() => handleRemoveComicFromCart(comic.id)}>
           <BsTrashFill size={24} color="#ffffff" />
