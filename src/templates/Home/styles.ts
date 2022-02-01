@@ -5,7 +5,7 @@ export const Container = styled.main`
 `
 
 export const Content = styled.div`
-  margin: calc(6rem + 2rem) 0 2rem;
+  margin: calc(6rem + 2rem) 0 7rem;
   padding: 0 2.5rem;
 
   h1 {

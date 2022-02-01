@@ -15,15 +15,6 @@ export type HomeTemplateProps = {
 export default function Home({ results, count }: HomeTemplateProps) {
   const [rareComics, setRareComics] = useState([]);
 
-
-  useEffect(() => {
-    const shuffledResults = [...results].sort(() => 0.5 - Math.random());
-
-    const rareComicsIds = shuffledResults.map(result => result.id);
-
-    setRareComics(rareComicsIds.slice(0, 0.1 * count));
-  }, [count, results]);
-
   return (
     <Container>
       <Content>
@@ -34,7 +25,6 @@ export default function Home({ results, count }: HomeTemplateProps) {
             <ComicResultItem 
               key={comic.id} 
               comic={comic} 
-              rare={rareComics.includes(comic.id)} 
             />
           ))}
         </ul>

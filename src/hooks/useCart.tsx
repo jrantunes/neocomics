@@ -8,7 +8,7 @@ import { Comic } from '../types';
 
 type CartContextData = {
   cart: Comic[];
-  handleAddComicToCart: (comicId: number) => Promise<void>;
+  handleAddComicToCart: (comicId: number, rare: boolean) => Promise<void>;
   handleRemoveComicFromCart: (comicId: number) => void;
   handleCleanCart: () => void;
   handleIncreaseComicAmount: (comicId: number, amount: number) => void;
@@ -31,7 +31,7 @@ export function CartProvider({ children }: CartProviderProps) {
     }
   }, [])
 
-  async function handleAddComicToCart(comicId: number) {
+  async function handleAddComicToCart(comicId: number, rare: boolean) {
     try {
       const updatedCart = [...cart];
     
@@ -43,7 +43,7 @@ export function CartProvider({ children }: CartProviderProps) {
 
       const { results } = data.data;
 
-      const { id, description, prices, thumbnail, title, amount } = results[0];
+      const { id, description, prices, thumbnail, title } = results[0];
 
       updatedCart.push({
         id,
@@ -51,6 +51,7 @@ export function CartProvider({ children }: CartProviderProps) {
         prices,
         thumbnail,
         title,
+        rare,
         amount: 1,
       });
 

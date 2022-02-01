@@ -1,6 +1,9 @@
 export type Comic = {
   id: number;
   title: string;
+  textObjects?: Array<{
+    text: string;
+  }>;
   description: string;
   prices: Array<{
     price: number;
@@ -9,5 +12,12 @@ export type Comic = {
     path: string;
     extension: string;
   }
+  creators?: {
+    items: Array<{
+      name: string;
+      role: string;
+    }>;
+  }
   amount?: number;
+  rare?: boolean;
 }

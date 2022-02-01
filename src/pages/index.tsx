@@ -1,38 +1,39 @@
 import Home, { HomeTemplateProps } from '../templates/Home';
-import md5 from 'js-md5';
-
 import { GetServerSideProps } from 'next';
+
+import { params } from '../utils/serverRequestParams';
 import { api } from '../services/api';
+import { Comic } from '../types';
 
 export default function Index(props: HomeTemplateProps) {
   return <Home {...props} />
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const publicKey = process.env.NEXT_PUBLIC_MARVEL_API_PUBLIC_KEY;
-  const privateKey = process.env.MARVEL_API_PRIVATE_KEY;
-  
-  const ts = Number(new Date());
-  const hash = md5.create();
-  hash.update(ts + privateKey + publicKey);
   
   const { data } = await api.get<{ data: HomeTemplateProps }>('/comics', {
     params: {
-      ts,
-      apikey: publicKey,
-      hash: hash.toString().toLowerCase(),
+      ...params,
+      format: 'comic',
+      formatType: 'comic',
+      noVariants: true,
     }
   });
   
   const { total, count, results } = data.data;
 
-  const comicsData = results.map(result => {
+  const shuffledResults = [...results].sort(() => 0.5 - Math.random());
+
+  const rareComicsIds = shuffledResults.map(result => result.id).slice(0, 2);
+
+  const comicsData: Comic[] = results.map(result => {
     return {
       id: result.id,
       title: result.title,
       description: result.description,
       prices: result.prices,
       thumbnail: result.thumbnail,
+      rare: rareComicsIds.includes(result.id),
     }
   });
 
