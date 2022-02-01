@@ -31,8 +31,16 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 93.75%;
     }
 
-    @media(max-width: 1080px) {
+    @media(max-width: 720px) {
       font-size: 87.5%;
+    }
+
+    @media(max-width: 620px) {
+      font-size: 81.25%;
+    }
+
+    @media(max-width: 560px) {
+      font-size: 75%;
     }
   }
 
