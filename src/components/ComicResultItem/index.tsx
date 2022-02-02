@@ -25,7 +25,7 @@ export function ComicResultItem({ comic }: ComicResultItemProps) {
       <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title} />
       <div className="item-details">
         <Link href={`/comic/${comic.id}`} passHref>
-          <strong>{comic.title}</strong>
+          <a>{comic.title}</a>
         </Link>
         { comic.rare && (
           <span>

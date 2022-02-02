@@ -48,10 +48,38 @@ export const Container = styled.li<ContainerProps>`
         color: var(--white);
       }
     }
-
-    > strong {
+    
+    a {
+      position: relative;
+      text-decoration: none;
+      width: fit-content;
       color: var(--white);
+      font-weight: 700;
       font-size: 1.25rem;
+
+      transition: color 0.2s;
+
+      &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 1px;
+        bottom: -4px;
+        left: 0;
+        background: var(--gray-300);
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+      }
+
+      &:hover {
+        color: var(--gray-300);
+
+        &:after {
+          transform: scaleX(1);
+          transform-origin: bottom left;
+        }
+      }
     }
 
     p {
@@ -65,6 +93,8 @@ export const Container = styled.li<ContainerProps>`
   }
 
   .item-actions {
+    margin-top: auto;
+
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
