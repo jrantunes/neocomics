@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { HomeTemplateProps } from '../../templates/Home';
 import { useCart } from '../../hooks/useCart';
@@ -21,7 +22,9 @@ export default function ComicPage({ comic, creators }: ComicPageProps) {
  
   return (
     <Container>
-
+      <Head>
+        <title>NEOCOMICS | {comic.title}</title>
+      </Head>
       <Content>
         <div>
           <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title} />

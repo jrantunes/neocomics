@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import { useComics } from '../../hooks/useComics';
 
@@ -47,6 +48,9 @@ export default function Home({ total, count, results }: HomeTemplateProps) {
 
   return (
     <Container>
+      <Head>
+        <title>NEOCOMICS | Página inicial</title>
+      </Head>
       <Content>
         <Banner ref={bannerRef}>
           <h1>Encontre aqui os seus quadrinhos favoritos no MELHOR PREÇO!</h1>

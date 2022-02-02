@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Head from 'next/head';
 import { useCart } from '../../hooks/useCart';
 
 import { Container, EmptyCartContainer, CartActionButton } from './styles';
@@ -13,6 +14,9 @@ export default function Cart() {
 
   return cart.length === 0 ? (
     <EmptyCartContainer>
+      <Head>
+        <title>NEOCOMICS | Carrinho vazio</title>
+      </Head>
       <div>
         <Image src={emptyCartImg} alt='Ilustração de carrinho vazio' />
       </div>
@@ -20,6 +24,9 @@ export default function Cart() {
     </EmptyCartContainer>
   ) : (
     <Container>
+      <Head>
+        <title>NEOCOMICS | Carrinho</title>
+      </Head>
       <div>
         <h1>Seu carrinho:</h1>
         <CartActionButton onClick={handleCleanCart}>Limpar carrinho</CartActionButton>
