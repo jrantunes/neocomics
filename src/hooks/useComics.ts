@@ -1,7 +1,7 @@
-import { QueryKey, useQuery, UseQueryOptions, UseQueryResult } from "react-query";
+import { useQuery} from "react-query";
 import { api } from "../services/api";
 import { Comic } from "../types";
-import { params } from "../utils/serverRequestParams";
+import { params as requestParams } from "../utils/serverRequestParams";
 
 export type GetComicsResponse = {
   total: number;
@@ -9,10 +9,15 @@ export type GetComicsResponse = {
   results: Comic[];
 }
 
-export async function getComics(optionalParams?: any): Promise<GetComicsResponse> {
+const { apikey } = requestParams;
+
+export async function getComics(page: number, optionalParams?: object): Promise<GetComicsResponse> {
   const { data } = await api.get('/comics', {
-    params,
-    ...optionalParams
+    params: {
+      offset: (page - 1) * 20,
+      apikey,
+      ...optionalParams,
+    },
   });
 
   const { total, count, results } = data.data as GetComicsResponse;
@@ -39,9 +44,9 @@ export async function getComics(optionalParams?: any): Promise<GetComicsResponse
   }
 }
 
-export function useComics<GetComicsResponse, Error, UseQueryOptions>(options?: UseQueryOptions) {
-  return useQuery('comics', () => getComics(), {
+export function useComics<GetComicsResponse, Error, UseQueryOptions>(currentPage: number, options?: UseQueryOptions) {
+  return useQuery(['comics', currentPage], () => getComics(currentPage), {
+    ...options,
     staleTime: 1000 * 60 * 60 * 24 * 7, // 7 dias
-    ...options
   });
 }
