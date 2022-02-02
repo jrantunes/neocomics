@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCart } from '../../hooks/useCart';
+
 import { Comic } from '../../types';
-import { CartButton } from '../CartButton';
+
 import { Container } from './styles';
+import { CartButton } from '../CartButton';
 
 type ComicResultItemProps = {
   comic: Comic;
@@ -23,7 +25,7 @@ export function ComicResultItem({ comic }: ComicResultItemProps) {
   return (
     <Container isAlreadyAddedToCart={cart.some(item => item.id === comic.id)}>
       <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title} />
-      <div className="item-details">
+      <div className='item-details'>
         <Link href={`/comic/${comic.id}`} passHref>
           <a>{comic.title}</a>
         </Link>

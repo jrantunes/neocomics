@@ -1,6 +1,8 @@
 import { useQuery} from "react-query";
 import { api } from "../services/api";
+
 import { Comic } from "../types";
+
 import { params as requestParams } from "../utils/serverRequestParams";
 
 export type GetComicsResponse = {

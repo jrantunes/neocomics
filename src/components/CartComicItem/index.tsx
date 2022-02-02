@@ -1,8 +1,9 @@
-import { BsTrashFill } from "react-icons/bs";
-import { useCart } from "../../hooks/useCart";
-import { Comic } from "../../types";
+import { useCart } from '../../hooks/useCart';
+
+import { Comic } from '../../types';
 
 import { Container, SelectContainer, RemoveButton } from './styles';
+import { BsTrashFill } from 'react-icons/bs';
 
 type CartComicItemProps = {
   comic: Comic;

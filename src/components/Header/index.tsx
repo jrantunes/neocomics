@@ -1,9 +1,10 @@
-import { BsFillBookFill, BsFillCartFill, BsCart } from 'react-icons/bs';
-import { Container } from './styles';
 import Link from 'next/link';
-import { useCart } from '../../hooks/useCart';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useCart } from '../../hooks/useCart';
+
+import { Container } from './styles';
+import { BsFillBookFill, BsFillCartFill, BsCart } from 'react-icons/bs';
 
 export function Header() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -26,7 +27,7 @@ export function Header() {
   
   return (
     <Container scrollPosition={scrollPosition}>
-      <Link href="/" passHref>
+      <Link href='/' passHref>
         <div className='header-logo'>
           <BsFillBookFill size={35} color='#ffffff' />
           <h2>NEOCOMICS</h2>
@@ -35,7 +36,7 @@ export function Header() {
 
       { pathname !== '/cart' && (
         <Link href='/cart' passHref >
-          <div className="header-cart">
+          <div className='header-cart'>
             { cart.length > 0 ? (
               <BsFillCartFill size={34} color='#ffffff' />
             ) : (

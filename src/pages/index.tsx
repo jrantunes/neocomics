@@ -1,7 +1,7 @@
 import Home, { HomeTemplateProps } from '../templates/Home';
 import { GetServerSideProps } from 'next';
-
 import { getComics } from '../hooks/useComics';
+
 import { params } from '../utils/serverRequestParams';
 
 export default function Index(props: HomeTemplateProps) {

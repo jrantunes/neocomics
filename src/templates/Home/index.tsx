@@ -1,15 +1,16 @@
 import Image from 'next/image';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { ComicResultItem } from '../../components/ComicResultItem';
-import { Container, Banner, Content } from './styles';
-import { FloatingCartButton } from '../../components/FloatingCartButton';
-
-import { Comic } from '../../types';
+import { useEffect, useRef, useState } from 'react';
 import { useComics } from '../../hooks/useComics';
 
-import bannerImg from '../../assets/images/banner-img.jpg';
+import { Comic } from '../../types';
+
+import ClipLoader from 'react-spinners/ClipLoader';
+import { Container, Banner, Content } from './styles';
+import { ComicResultItem } from '../../components/ComicResultItem';
+import { FloatingCartButton } from '../../components/FloatingCartButton';
 import { Pagination } from '../../components/Pagination';
-import { useEffect, useRef, useState } from 'react';
+
+import bannerImg from '../../assets/images/banner-img.jpg';
 
 export type HomeTemplateProps = {
   total: number;
@@ -36,23 +37,21 @@ export default function Home({ total, count, results }: HomeTemplateProps) {
     if (storagedCurrentPage) {
       setCurrentPage(Number(storagedCurrentPage))
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('@neocomics:currentPage', String(currentPage));
-  }, [currentPage])
-
-  useEffect(() => {
+    
     bannerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [currentPage])
+  }, [currentPage]);
 
   return (
     <Container>
       <Content>
         <Banner ref={bannerRef}>
           <h1>Encontre aqui os seus quadrinhos favoritos no MELHOR PREÇO!</h1>
-          <div className="image">
-            <Image src={bannerImg} alt="Banner image" />
+          <div className='image'>
+            <Image src={bannerImg} alt='Ilustração do banner' />
           </div>
         </Banner>
         <h1>Lista de quadrinhos</h1>

@@ -9,8 +9,9 @@ type PaginationItemProps = {
 export function PaginationItem({ 
   number, 
   onPageChange, 
-  isCurrent = false 
+  isCurrent = false, 
 }: PaginationItemProps) {
+
   return (
     <Button 
       isCurrent={isCurrent} 

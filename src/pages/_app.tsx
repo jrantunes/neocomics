@@ -1,12 +1,14 @@
 import { AppProps } from 'next/app'
-import { ToastContainer } from 'react-toastify'
-import { Header } from '../components/Header'
-import { CartProvider } from '../hooks/useCart'
-import { GlobalStyle } from '../styles/global'
-import { QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 import { queryClient } from '../services/queryClient';
+
+import { CartProvider } from '../hooks/useCart'
+import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { ToastContainer } from 'react-toastify'
+import { Header } from '../components/Header'
+import { GlobalStyle } from '../styles/global'
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -22,4 +24,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   )
 }
 
-export default MyApp
+export default MyApp;

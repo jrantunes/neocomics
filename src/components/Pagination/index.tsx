@@ -1,6 +1,5 @@
-import { PaginationItem } from "./PaginationItem";
-
 import { Container } from './styles';
+import { PaginationItem } from './PaginationItem';
 
 type PaginationProps = {
   totalCount: number;
@@ -23,7 +22,7 @@ export function Pagination({
   currentPage = 1,
   totalCount,
   countPerPage = 20,
-  onPageChange
+  onPageChange,
 }: PaginationProps) {
   const lastPage = Math.ceil(totalCount / countPerPage);
 

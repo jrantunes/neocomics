@@ -3,8 +3,8 @@ import { useState, useEffect, createContext, useContext, ReactNode } from 'react
 import { toast } from 'react-toastify';
 import { api } from '../services/api';
 
-import { HomeTemplateProps } from '../templates/Home';
 import { Comic } from '../types';
+import { HomeTemplateProps } from '../templates/Home';
 
 type CartContextData = {
   cart: Comic[];
@@ -29,7 +29,7 @@ export function CartProvider({ children }: CartProviderProps) {
     if (storagedCart) {
       setCart(JSON.parse(storagedCart));
     }
-  }, [])
+  }, []);
 
   async function handleAddComicToCart(comicId: number, rare: boolean) {
     try {
@@ -60,8 +60,8 @@ export function CartProvider({ children }: CartProviderProps) {
       localStorage.setItem('@neocomics:cart', JSON.stringify(updatedCart));
       
       toast.success('HQ adicionado ao seu carrinho!');
-    } catch{
-      toast.error('Erro ao adicionar a HQ :(')
+    } catch {
+      toast.error('Erro ao adicionar a HQ :(');
     }
   }
 

@@ -1,15 +1,15 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
-
+import { HomeTemplateProps } from '../../templates/Home';
+import { useCart } from '../../hooks/useCart';
 import { api } from '../../services/api';
-import { params as requestParams } from '../../utils/serverRequestParams';
 
 import { Comic } from '../../types';
-import { HomeTemplateProps } from '../../templates/Home';
 
 import { Container, Content } from './styles';
-import { CartButton } from '../../components/CartButton';
-import { useCart } from '../../hooks/useCart';
 import { FloatingCartButton } from '../../components/FloatingCartButton';
+import { CartButton } from '../../components/CartButton';
+
+import { params as requestParams } from '../../utils/serverRequestParams';
 
 type ComicPageProps = {
   comic: Comic;
