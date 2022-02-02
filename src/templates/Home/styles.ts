@@ -32,7 +32,7 @@ export const Banner = styled.div`
     position: absolute;
     
     bottom: -0.25rem;
-    right: 1.75rem;
+    right: 1.125rem;
 
     mask-image: -webkit-gradient(linear, right bottom, left top, 
       color-stop(0.00,  rgba(0,0,0,0)),
@@ -55,12 +55,16 @@ export const Content = styled.div`
   margin-bottom: 7rem;
   padding: 0 2.5rem;
 
+  display: flex;
+  flex-direction: column;
+
   h1 {
     margin-bottom: 2rem;
     color: var(--white-200);
   }
 
   ul {
+    margin-bottom: 2rem;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 1.5rem;

@@ -7,6 +7,13 @@
         "ssr": true,
         "displayName": true
       }
+    ],
+    [
+      "@emotion",
+      {
+        "ssr": true,
+        "displayName": true
+      }
     ]
   ] 
 }
