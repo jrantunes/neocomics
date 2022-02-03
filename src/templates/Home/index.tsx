@@ -3,8 +3,6 @@ import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import { useComics } from '../../hooks/useComics';
 
-import { Comic } from '../../types';
-
 import ClipLoader from 'react-spinners/ClipLoader';
 import { Container, Banner, Content } from './styles';
 import { ComicResultItem } from '../../components/ComicResultItem';
@@ -13,13 +11,7 @@ import { Pagination } from '../../components/Pagination';
 
 import bannerImg from '../../assets/images/banner-img.jpg';
 
-export type HomeTemplateProps = {
-  total: number;
-  count: number;
-  results: Comic[];
-}
-
-export default function Home({ total, count, results }: HomeTemplateProps) {
+export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   
   const { data, isFetching } = useComics(currentPage);
