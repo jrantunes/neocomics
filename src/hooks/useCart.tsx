@@ -3,8 +3,7 @@ import { useState, useEffect, createContext, useContext, ReactNode } from 'react
 import { toast } from 'react-toastify';
 import { api } from '../services/api';
 
-import { Comic } from '../types';
-import { HomeTemplateProps } from '../templates/Home';
+import { ApiResponse, Comic } from '../types';
 
 type CartContextData = {
   cart: Comic[];
@@ -35,7 +34,7 @@ export function CartProvider({ children }: CartProviderProps) {
     try {
       const updatedCart = [...cart];
     
-      const { data } = await api.get<{ data: HomeTemplateProps }>(`/comics/${comicId}`, {
+      const { data } = await api.get<{ data: ApiResponse }>(`/comics/${comicId}`, {
         params: {
           apikey: process.env.NEXT_PUBLIC_MARVEL_API_PUBLIC_KEY,
         }

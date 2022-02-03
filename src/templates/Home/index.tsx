@@ -22,13 +22,7 @@ export type HomeTemplateProps = {
 export default function Home({ total, count, results }: HomeTemplateProps) {
   const [currentPage, setCurrentPage] = useState(1);
   
-  const { data, isFetching } = useComics(currentPage, {
-    placeholderData: {
-      total,
-      count,
-      results,
-    },
-  });
+  const { data, isFetching } = useComics(currentPage);
 
   const bannerRef = useRef<HTMLDivElement>(null);
 

@@ -21,3 +21,9 @@ export type Comic = {
   amount?: number;
   rare?: boolean;
 }
+
+export type ApiResponse = {
+  total: number;
+  count: number;
+  results: Comic[];
+}

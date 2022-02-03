@@ -1,11 +1,10 @@
 import ComicTemplate, { ComicPageProps } from '../../templates/Comic';
 import { api } from '../../services/api';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { HomeTemplateProps } from '../../templates/Home';
 
-import { Comic } from '../../types';
+import { ApiResponse, Comic } from '../../types';
 
-import { params as requestParams } from '../../utils/serverRequestParams';
+import { getRequestParams } from '../../utils/serverRequestParams';
 
 export default function ComicPage(props: ComicPageProps) {
   return <ComicTemplate {...props} />
@@ -21,8 +20,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params;
 
-  const { data } = await api.get<{ data: HomeTemplateProps }>(`/comics/${id}`, {
-    params: requestParams,
+  const { data } = await api.get<{ data: ApiResponse }>(`/comics/${id}`, {
+    params: getRequestParams(new Date()),
   });
 
   const { results } = data.data;

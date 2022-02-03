@@ -3,7 +3,7 @@ import { api } from "../services/api";
 
 import { Comic } from "../types";
 
-import { params as requestParams } from "../utils/serverRequestParams";
+import { getRequestParams } from "../utils/serverRequestParams";
 
 export type GetComicsResponse = {
   total: number;
@@ -11,18 +11,23 @@ export type GetComicsResponse = {
   results: Comic[];
 }
 
-const { apikey } = requestParams;
+const { apikey, hash } = getRequestParams(new Date());
 
 export async function getComics(page: number, optionalParams?: object): Promise<GetComicsResponse> {
+  console.log('getcomics')
+  
   const { data } = await api.get('/comics', {
     params: {
       offset: (page - 1) * 20,
       apikey,
+      hash,
       ...optionalParams,
     },
   });
 
   const { total, count, results } = data.data as GetComicsResponse;
+
+  console.log(total, count, results)
 
   const shuffledResults = [...results].sort(() => 0.5 - Math.random());
 
@@ -47,6 +52,8 @@ export async function getComics(page: number, optionalParams?: object): Promise<
 }
 
 export function useComics<GetComicsResponse, Error, UseQueryOptions>(currentPage: number, options?: UseQueryOptions) {
+  console.log('teste')
+  
   return useQuery(['comics', currentPage], () => getComics(currentPage), {
     ...options,
     staleTime: 1000 * 60 * 60 * 24 * 7, // 7 dias
