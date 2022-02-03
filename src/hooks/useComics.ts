@@ -25,6 +25,8 @@ export async function getComics(page: number, optionalParams?: object): Promise<
     },
   });
 
+  console.log(data);
+
   const { total, count, results } = data.data as GetComicsResponse;
 
   console.log(total, count, results)
