@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Head from 'next/head';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useComics } from '../../hooks/useComics';
 
 import ClipLoader from 'react-spinners/ClipLoader';
@@ -9,14 +9,21 @@ import { ComicResultItem } from '../../components/ComicResultItem';
 import { FloatingCartButton } from '../../components/FloatingCartButton';
 import { Pagination } from '../../components/Pagination';
 
+import { ApiResponse } from '../../types';
+
 import bannerImg from '../../assets/images/banner-img.jpg';
 
-export default function Home() {
+
+export default function Home({ results, total, count }: ApiResponse) {
   const [currentPage, setCurrentPage] = useState(1);
   
-  const { data, isFetching } = useComics(currentPage);
-
-  const bannerRef = useRef<HTMLDivElement>(null);
+  const { data, isFetching } = useComics(currentPage, {
+    placeholderData: {
+      results,
+      total,
+      count,
+    }
+  });
 
   useEffect(() => {
     const storagedCurrentPage = localStorage.getItem('@neocomics:currentPage');
@@ -29,7 +36,7 @@ export default function Home() {
   useEffect(() => {
     localStorage.setItem('@neocomics:currentPage', String(currentPage));
     
-    bannerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.scrollTo(0, 0);
   }, [currentPage]);
 
   return (
@@ -38,7 +45,7 @@ export default function Home() {
         <title>NEOCOMICS | Página inicial</title>
       </Head>
       <Content>
-        <Banner ref={bannerRef}>
+        <Banner>
           <h1>Encontre aqui os seus quadrinhos favoritos no MELHOR PREÇO!</h1>
           <div className='image'>
             <Image src={bannerImg} alt='Ilustração do banner' />
