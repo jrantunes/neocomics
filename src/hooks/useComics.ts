@@ -11,15 +11,14 @@ export type GetComicsResponse = {
   results: Comic[];
 }
 
-const { apikey, hash } = getRequestParams(new Date());
+const { apikey } = getRequestParams(new Date());
 
 export async function getComics(page: number, optionalParams?: object): Promise<GetComicsResponse> {
   const { data } = await api.get('/comics', {
     params: {
       offset: (page - 1) * 20,
       apikey,
-      hash,
-      ...optionalParams,
+      ...optionalParams
     },
   });
 
