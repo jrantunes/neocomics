@@ -100,7 +100,7 @@ export const Container = styled.li<ContainerProps>`
     grid-gap: 1rem;
 
     button {
-      padding: 1rem 2rem;
+      padding: 0.75rem 1rem;
       border-radius: 0.25rem;
 
       display: flex;

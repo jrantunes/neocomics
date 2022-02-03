@@ -24,13 +24,12 @@ export const Content = styled.div`
   }
 
   > div {
-    flex: 6;
-
     @media(min-width: 500px) {
       padding: 1rem 0 1rem 1rem;
     }
   
     img {
+      flex: 9;
       height: 24rem;
 
       width: 100%;
@@ -40,6 +39,10 @@ export const Content = styled.div`
       object-fit: cover;
       object-position: center center;
 
+      @media(min-width: 500px) {
+        max-width: 18.75rem;
+      }
+
       @media(min-width: 720px) {
         height: 32rem;
       }
@@ -47,8 +50,9 @@ export const Content = styled.div`
   }
 
   section {
-    flex: 9;
-    width: fit-content;
+    flex: 7;
+    max-width: 37.5rem;
+    width: 100%;
     padding: 1rem 1rem 1rem 0;
 
     display: flex;

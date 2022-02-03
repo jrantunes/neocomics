@@ -51,28 +51,40 @@ export const Container = styled.header<HeaderProps>`
       cursor: pointer;
     }
 
+    svg {
+      transition: fill 0.2s;
+    }
+
     strong {
       position: relative;
       color: var(--white);
 
-      font-size: 1.1rem;
+      font-size: 1rem;
+
+      transition: color 0.2s;
 
       &:after {
         content: '';
         position: absolute;
         width: 100%;
         transform: scaleX(0);
-        height: 2px;
+        height: 1px;
         bottom: -4px;
         left: 0;
-        background: var(--white);
+        background: var(--white-200);
         transform-origin: bottom right;
         transition: transform 0.25s ease-out;
       }
     }
 
     &:hover {
+      svg {
+        fill: var(--white-200);
+      }
+
       strong {
+        color: var(--white-200);
+
         &:after {
           transform: scaleX(1);
           transform-origin: bottom left;
